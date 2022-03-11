@@ -16,17 +16,18 @@ const isLiked = (id) => {
 };
 
 const addToLiked = (id) => {
+    const likedPostSection = document.getElementById("liked");
     likedPostsId.push(id); 
     showPosts(posts);
+    likedPostSection.textContent = '';
 };
 
 const reportPost = (id) => {
     const reportedStatus = document.getElementById("reported");
-    reportedStatus.innerHTML = '';
     reportedPostsId.push(id);
     const remainingPosts = posts.filter((post) => !reportedPostsId.includes(post.id));
     showPosts(remainingPosts);
-    
+    reportedStatus.innerHTML = '';
 };
 
 const displayContent = (text) => {
@@ -156,13 +157,22 @@ const displayLikedPosts = () => {
 };
 
 const displayReportedPosts = () => {
+  
     const reportedPosts = getReportedPosts();
+    
     reportedPosts.forEach((post) => {
+      
         const div = createPost(post);
+        
+        document.getElementById("reported").appendChild(div);
+        
+        // reportedPosts.innerHTML = '';
         const reportedStatus = document.getElementById( "reported" );
         reportedStatus.innerHTML = '';
         reportedStatus.appendChild(div);
+        
     });
+    
 };
 
 const loadPosts = async () =>{
